@@ -1,0 +1,20 @@
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-link {
+  width: 200px;
+}
+
+.login-link img {
+  width: 100%;
+}
+
+.wrap {
+  width: 800px;
+  margin: 0 auto;
+  padding: 50px 0;
+}
