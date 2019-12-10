@@ -195,7 +195,8 @@ class App extends Component {
           value={this.state.message}
         />
 
-        <br />
+        <Divider />
+        
         <p>Add attachment link (optional):</p>
 
         <Input

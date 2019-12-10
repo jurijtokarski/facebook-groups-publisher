@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "postinstall": "npm ci --prefix client",
-    "heroku-postbuild": "NODE_ENV=production npm run build --prefix client",
+    "heroku-postbuild": "NODE_ENV=production yarn build --prefix client",
     "start": "NODE_ENV=production node index.js"
   },
   "author": "",
