@@ -121,6 +121,8 @@ app.get('/api/groups', async (req, res) => {
     error
   } = await axios.get(`https://graph.facebook.com/v5.0/${user.id}/groups?access_token=${access_token}`).catch(error => ({ error }));
 
+  console.log(">>> more groups", result);
+
   if (error) {
     console.error(">>> api/groups error", error);
 
@@ -129,6 +131,14 @@ app.get('/api/groups', async (req, res) => {
     });
   }
 
+  if (!result || !result.paging) {
+    console.error(">>> api/groups no result", result);
+
+    return res.status(400).json({
+      message: 'no results'
+    });
+  }
+  
   const groups = await getUserGroups(result.paging.next, result.data);
 
   return res.json(groups);
