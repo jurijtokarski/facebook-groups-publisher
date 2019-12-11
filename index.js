@@ -44,7 +44,7 @@ function getTokenByReq(req) {
 }
 
 app.get('/auth/login', (req, res) => {
-  return res.redirect(`https://www.facebook.com/v5.0/dialog/oauth?client_id=${CLIENT_ID}&redirect_uri=${APP_ROOT}auth/code&state=${generateUUID()}`);
+  return res.redirect(`https://www.facebook.com/v5.0/dialog/oauth?client_id=${CLIENT_ID}&redirect_uri=${APP_ROOT}auth/code&state=${generateUUID()}&scope=publish_to_groups,groups_access_member_info`);
 });
 
 app.get('/auth/code', async (req, res) => {
@@ -138,7 +138,7 @@ app.get('/api/groups', async (req, res) => {
       message: 'no results'
     });
   }
-  
+
   const groups = await getUserGroups(result.paging.next, result.data);
 
   return res.json(groups);
