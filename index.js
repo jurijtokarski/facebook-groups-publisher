@@ -88,7 +88,15 @@ async function getUserGroups(next = null, groups = []) {
     return groups;
   }
 
-  const { data: result } = await axios.get(next).catch(console.error);
+  const {
+    data: result,
+    error
+  } = await axios.get(next).catch(error => ({ error }));
+
+  if (error) {
+    console.error(">>> getUserGroups error", error);
+    return groups;
+  }
 
   return getUserGroups(result.paging.next, [
     ...groups,
@@ -108,7 +116,19 @@ app.get('/api/groups', async (req, res) => {
   const access_token = accessTokens[token];
   const user = usersData[token];
 
-  const { data: result } = await axios.get(`https://graph.facebook.com/v5.0/${user.id}/groups?access_token=${access_token}`).catch(console.error);
+  const {
+    data: result,
+    error
+  } = await axios.get(`https://graph.facebook.com/v5.0/${user.id}/groups?access_token=${access_token}`).catch(error => ({ error }));
+
+  if (error) {
+    console.error(">>> api/groups error", error);
+
+    return res.status(400).json({
+      message: error.message
+    });
+  }
+
   const groups = await getUserGroups(result.paging.next, result.data);
 
   return res.json(groups);
@@ -137,6 +157,8 @@ app.post('/api/create', async (req, res) => {
   } = await axios.post(`https://graph.facebook.com/v5.0/${groupId}/feed?access_token=${access_token}`, { message, link }).catch(error => ({ error }));
 
   if (error) {
+    console.error(">>> api/create error", error);
+
     return res.status(400).json({
       message: error.message
     });
