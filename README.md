@@ -1,4 +1,4 @@
-# Facebook groups publisher
+# Facebook Groups Publisher tool
 
 Tool allows to publish post into multiple Facebook Groups, where you have access to publish.
 
