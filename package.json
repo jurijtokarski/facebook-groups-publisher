@@ -9,7 +9,6 @@
   ],
   "scripts": {
     "postinstall": "npm install --prefix client",
-    "heroku-postbuild": "NODE_ENV=production npm run build --prefix client",
     "start": "NODE_ENV=production node index.js"
   },
   "author": "",
